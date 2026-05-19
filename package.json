@@ -24,6 +24,14 @@
       {
         "command": "fosession.resetSession",
         "title": "Reset Session"
+      },
+      {
+        "command": "fosession.pauseSession",
+        "title": "Pause Session"
+      },
+      {
+        "command": "fosession.unpauseSession",
+        "title": "Unpause Session"
       }
     ]
   },

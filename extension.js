@@ -12,6 +12,16 @@ function activate(context) {
 		statusBar.backgroundColor = null;
 	});
 
+	const pauseCommand = vscode.commands.registerCommand('fosession.pauseSession', function() {
+		stopwatch.pause();
+		statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
+	});
+
+	const unpauseCommand = vscode.commands.registerCommand('fosession.unpauseSession', function() {
+		stopwatch.unpause();
+		statusBar.backgroundColor = null;
+	});
+
 	const stopCommand = vscode.commands.registerCommand('fosession.stopSession', function() {
 		stopwatch.stop();
 		statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
@@ -26,6 +36,7 @@ function activate(context) {
 
 	context.subscriptions.push(
 		startCommand,
+		pauseCommand,
 		stopCommand,
 		resetCommand,
 		statusBar
