@@ -34,6 +34,12 @@ class SessionStopwatch {
             this.statusBar.text = SessionStopwatch.prettyFormatTime(elapsed);
         }, 1000);
     }
+
+    stop() {
+        if (!this.interval) return;
+        clearInterval(this.interval);
+        this.interval = null;
+    }
 }
 
 module.exports = SessionStopwatch;
