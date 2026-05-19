@@ -20,6 +20,10 @@
       {
         "command": "fosession.stopSession",
         "title": "Stop Session"
+      },
+      {
+        "command": "fosession.resetSession",
+        "title": "Reset Session"
       }
     ]
   },

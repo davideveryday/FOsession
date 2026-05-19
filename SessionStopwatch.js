@@ -40,6 +40,11 @@ class SessionStopwatch {
         clearInterval(this.interval);
         this.interval = null;
     }
+
+    reset() {
+        this.stop();
+        this.startTime = 0;
+    }
 }
 
 module.exports = SessionStopwatch;

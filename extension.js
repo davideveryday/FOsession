@@ -17,9 +17,17 @@ function activate(context) {
 		statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
 	});
 
+	const resetCommand = vscode.commands.registerCommand('fosession.resetSession', function() {
+		stopwatch.reset();
+		statusBar.backgroundColor = null;
+		statusBar.text = "00:00:00";
+
+	});
+
 	context.subscriptions.push(
 		startCommand,
 		stopCommand,
+		resetCommand,
 		statusBar
 	);
 }
