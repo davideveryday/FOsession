@@ -1,6 +1,7 @@
 class SessionStopwatch {
 
     startTime = 0;
+    accumulatedTime = 0;
     interval = null;
     timeStatus = null;
     statusBar;
@@ -31,9 +32,9 @@ class SessionStopwatch {
         this.startTime = Date.now();
 
         this.interval = setInterval(() => {
-            const now = Date.now();
             if (this.timeStatus == "running") {
-                const elapsed = now - this.startTime;
+                const now = Date.now();
+                const elapsed = this.accumulatedTime + (now - this.startTime);
                 this.statusBar.text = SessionStopwatch.prettyFormatTime(elapsed);
             }
         }, 1000);
@@ -42,13 +43,15 @@ class SessionStopwatch {
     // 2 options: 1. create a new interval in each pause/resume 2. add a conditional to the start interval
     pause() {
         if (!this.interval) return;
-        this.startTime = Date.now();
+        this.accumulatedTime += (Date.now() - this.startTime);
         this.timeStatus = "paused";
     }
 
     unpause() {
         if (!this.interval) return;
+        if (this.timeStatus != "paused") return;
         this.timeStatus = "running";
+        this.startTime = Date.now();
     }
 
     stop() {
@@ -61,6 +64,7 @@ class SessionStopwatch {
     reset() {
         this.stop();
         this.startTime = 0;
+        this.accumulatedTime = 0;
         this.timeStatus = "running";
     }
 }
