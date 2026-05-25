@@ -1,14 +1,20 @@
 {
   "name": "fosession",
-  "displayName": "fosession",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "FOsession",
+  "description": "Simple and lightweight session stopwatch for VSCode",
+  "version": "1.0.0",
+  "publisher": "davideveryday",
   "engines": {
     "vscode": "^1.120.0"
   },
   "categories": [
     "Other"
   ],
+  "icon": "images/icon1.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davideveryday/FOsession.git"
+  },
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
