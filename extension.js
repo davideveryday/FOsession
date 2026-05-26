@@ -26,7 +26,6 @@ function activate(context) {
 
 	const resetCommand = vscode.commands.registerCommand('fosession.resetSession', function() {
 		stopwatch.reset();
-
 	});
 
 	context.subscriptions.push(

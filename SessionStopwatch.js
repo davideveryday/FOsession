@@ -30,6 +30,7 @@ class SessionStopwatch {
     start() {
         if (this.interval) return;
         if (this.timeStatus == "stopped") this.timeStatus = "running";
+        this.statusBar.show();
 
 		this.statusBar.backgroundColor = null;
         this.startTime = Date.now();
@@ -71,6 +72,7 @@ class SessionStopwatch {
     reset() {
         this.stop();
 		this.statusBar.backgroundColor = null;
+        this.statusBar.hide();
         this.startTime = 0;
         this.accumulatedTime = 0;
         this.timeStatus = "stopped";
