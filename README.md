@@ -9,7 +9,7 @@ Track your coding sessions directly from the status bar.
 - Reset timer
 - Status bar integration
 
-![FEATURES](preview.gif)
+![FEATURES](/images/preview.gif)
 
 ## Commands
 
