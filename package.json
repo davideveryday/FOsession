@@ -4,6 +4,7 @@
   "description": "Simple and lightweight session stopwatch for VSCode",
   "version": "1.0.0",
   "publisher": "davideveryday",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.120.0"
   },
