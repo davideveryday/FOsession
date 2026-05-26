@@ -1,3 +1,5 @@
+const vscode = require('vscode');
+
 class SessionStopwatch {
 
     startTime = 0;
@@ -8,12 +10,11 @@ class SessionStopwatch {
 
     constructor(vscodeStatusBar) {
         this.statusBar = vscodeStatusBar;
-        this.timeStatus = "running";
+        this.timeStatus = "stopped";
     }
 
-    // ImI: add to prototype
     static parseTime(t) {
-        const totalSeconds = parseInt(t / 1000);
+        const totalSeconds = Math.floor(t / 1000);
         const seconds = totalSeconds % 60;
         const minutes = Math.floor(totalSeconds / 60) % 60;
         const hours = Math.floor(totalSeconds / 3600);
@@ -28,7 +29,9 @@ class SessionStopwatch {
 
     start() {
         if (this.interval) return;
+        if (this.timeStatus == "stopped") this.timeStatus = "running";
 
+		this.statusBar.backgroundColor = null;
         this.startTime = Date.now();
 
         this.interval = setInterval(() => {
@@ -37,12 +40,13 @@ class SessionStopwatch {
                 const elapsed = this.accumulatedTime + (now - this.startTime);
                 this.statusBar.text = SessionStopwatch.prettyFormatTime(elapsed);
             }
-        }, 1000);
+        }, 250);
     }
 
-    // 2 options: 1. create a new interval in each pause/resume 2. add a conditional to the start interval
     pause() {
         if (!this.interval) return;
+        if (this.timeStatus == "paused") return;
+        this.statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
         this.accumulatedTime += (Date.now() - this.startTime);
         this.timeStatus = "paused";
     }
@@ -50,6 +54,7 @@ class SessionStopwatch {
     unpause() {
         if (!this.interval) return;
         if (this.timeStatus != "paused") return;
+		this.statusBar.backgroundColor = null;
         this.timeStatus = "running";
         this.startTime = Date.now();
     }
@@ -57,15 +62,19 @@ class SessionStopwatch {
     stop() {
         if (!this.interval) return;
         clearInterval(this.interval);
+		this.statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
+        this.accumulatedTime = 0;
         this.interval = null;
         this.timeStatus = "stopped";
     }
 
     reset() {
         this.stop();
+		this.statusBar.backgroundColor = null;
         this.startTime = 0;
         this.accumulatedTime = 0;
-        this.timeStatus = "running";
+        this.timeStatus = "stopped";
+		this.statusBar.text = "00:00:00";
     }
 }
 

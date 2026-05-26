@@ -1,36 +1,31 @@
 const vscode = require('vscode');
 const SessionStopwatch = require ('./SessionStopwatch');
 
+let stopwatch = null;
 function activate(context) {
 	const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 999);
 	statusBar.text = "00:00:00";
 	statusBar.show();
-	const stopwatch = new SessionStopwatch(statusBar);
+	stopwatch = new SessionStopwatch(statusBar);
 
 	const startCommand = vscode.commands.registerCommand('fosession.startSession', function() {
 		stopwatch.start();
-		statusBar.backgroundColor = null;
 	});
 
 	const pauseCommand = vscode.commands.registerCommand('fosession.pauseSession', function() {
 		stopwatch.pause();
-		statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
 	});
 
 	const unpauseCommand = vscode.commands.registerCommand('fosession.unpauseSession', function() {
 		stopwatch.unpause();
-		statusBar.backgroundColor = null;
 	});
 
 	const stopCommand = vscode.commands.registerCommand('fosession.stopSession', function() {
 		stopwatch.stop();
-		statusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
 	});
 
 	const resetCommand = vscode.commands.registerCommand('fosession.resetSession', function() {
 		stopwatch.reset();
-		statusBar.backgroundColor = null;
-		statusBar.text = "00:00:00";
 
 	});
 
@@ -43,7 +38,10 @@ function activate(context) {
 	);
 }
 
-function deactivate() {}
+function deactivate() {
+	if (stopwatch) stopwatch.stop();
+	
+}
 
 module.exports = {
 	activate,
